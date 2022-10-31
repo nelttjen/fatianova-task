@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random cat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Roboto+Condensed:wght@300&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <!-- 
+        font-family: 'Poor Story', cursive;
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto Condensed', sans-serif 
+    -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <script async>
+        $(document).ready(function () {
+            $("#cat-button").click(function (e) { 
+                e.preventDefault();
+                cat_button_click();
+            });
+        });
+
+        function add_cat(index) {
+            $.ajax({
+                type: "GET",
+                url: "https://api.thecatapi.com/v1/images/search",
+                success: function (response) {
+                    html_code = `
+                    <div class="another-cat mt-3"><h2>Котяра №${index}<h2><img src="${response[0]['url']}" alt="No cat here :(" width="400"></div>
+                    `
+                    $('.cat-view').append(html_code)
+                }
+            });
+        }
+
+        function cat_button_click() {
+            count = $("#cat-val").val();
+            if (Number(count) <= 20 && Number(count) >= 1) {
+                $(".cat-view").text("");
+                for (let index = 0; index < Number(count); index++) {
+                    add_cat(index + 1);
+                }
+            } else {
+                alert("Число должно быть в диапозоне 1-20")
+            }
+
+        }
+    </script>
+
+    <style>
+        .cat-generator {
+            width: 300px;
+            height: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cat-generator mt-5">
+            <label for="cat-val">Сколько котяр найти? От 1 до 20</label>
+            <input type="number" id="cat-val" name="cat-val" max=20 min=1 value="1" class="form-control">
+            <button class="cat-button btn btn-primary mt-2" id="cat-button">Найти котяр!</button>
+        </div>
+        <a href="/index.html" style="margin-top: 10px;"><h2 style="margin-top: 20px;"><<< На главную </h2><a></a>
+        <div class="cat-view mt-3">
+
+        </div>
+    </div>
+</body>
+</html>

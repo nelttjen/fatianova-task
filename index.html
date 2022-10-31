@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Roboto+Condensed:wght@300&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <!-- 
+        font-family: 'Poor Story', cursive;
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto Condensed', sans-serif 
+    -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+
+    <script>
+        $(document).ready(function () {
+            function set_cat() {
+                $.ajax({
+                type: "GET",
+                url: "https://api.thecatapi.com/v1/images/search",
+                success: function (response) {
+                    $(".cat-img").attr('src', response[0]['url']);
+                    $(".cat-img").attr('style', 'margin: auto;');
+                }
+            });
+            }
+            set_cat();
+            setInterval(set_cat, 7500);
+        });
+    </script>
+    </head>
+<body>
+    <div class="container" style="width: fit-content; margin: auto; padding: 25px;">
+        <h1 class="mt-3">Привет! Это основная страница этого проекта</h1>
+        <p class="mt-5">Здесь есть парочку ссылок: </p>
+        <p><a href="/diagram.html">Color diagram</a>: <span style="background-color: purple; color: yellow;">Что это такое</span> <span style="background-color: yellow; color: purple;">И зачем оно нужно</span></p>
+        <p><a href="/fonts.html">Fonts</a>: <span style="font-family: 'Poor Story', cursive;">Примеры</span>, 
+            <span style="font-family: 'Roboto', sans-serif;">стили </span>
+            и 
+            <span style="font-family: 'Roboto Condensed', sans-serif">другое</span>
+        </p>
+        <p>
+            <a href="/tables.html">Tables</a>
+            : Примеры таблиц
+        </p>
+        <p>
+            <a href="/cats.html">Cat generator</a>
+            : meow meow или meow meow meow meow? Выберите столько meow, сколько хотите (максимум - 20)!
+        </p>
+        
+        <div class="mt-5">
+            <h2>Ну либо же насладитесь картинками случайных котяр :з</h2>
+            <div class="cat-container mt-3" style="width: fir-content; margin: auto;">
+                <img src="" alt="Oops, no cat here :(" class="cat-img" width="500">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
